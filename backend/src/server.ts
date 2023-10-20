@@ -36,24 +36,24 @@ const io = new IOServer(httpServer, {
 io.on('connect', (socket) => {
   console.log('io connected on ' + socket.id);
 
-  io.use((socket, next) => {
-    console.log('middleware io use ' + socket.id);
-    next();
-  });
+  // io.use((socket, next) => {
+  //   console.log('middleware io use ' + socket.id);
+  //   next();
+  // });
 
   const count = io.engine.clientsCount;
   console.log(count);
   socket.join('room1');
   console.log(socket.rooms);
 
-  socket.on('custom-event', (id, callback) => {
-    if (!id) return;
-    const data = db[id];
-    if (!data) return;
-    callback({
-      data,
-    });
-  });
+  // socket.on('custom-event', (id, callback) => {
+  //   if (!id) return;
+  //   const data = db[id];
+  //   if (!data) return;
+  //   callback({
+  //     data,
+  //   });
+  // });
 
   // socket.broadcast.emit('broadcast', 'i am broadcasting');
 
@@ -61,10 +61,8 @@ io.on('connect', (socket) => {
     console.log(data);
     string = data;
 
-    // socket.emit('get-string', data);
+    socket.broadcast.emit('get-string', string);
   });
-
-  socket.broadcast.emit('get-string', string);
 
   // io.sockets.on('disconnect', (socket) => {
   //   socket.disconnect();

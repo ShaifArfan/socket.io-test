@@ -50,26 +50,11 @@ function App() {
         value={string}
         onChange={(v) => {
           setString(v.currentTarget.value);
+          socket.emit('set-string', v.currentTarget.value);
         }}
       />
       <br />
-      <button
-        onClick={() => {
-          socket.emit('set-string', string);
-        }}
-      >
-        pass
-      </button>
-      {/* <button
-        onClick={() => {
-          socket.on('get-string', (data) => {
-            console.log(data);
-            setData(data);
-          });
-        }}
-      >
-        Get
-      </button> */}
+
       <p>Status: {isConnected ? 'connected' : 'disconnected'}</p>
       <button
         onClick={() => {
